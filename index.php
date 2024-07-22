@@ -1,22 +1,28 @@
-<?php  include_once './config/config.php'; ?>
-<?php 
-  if(!isset($_SESSION['userLogged'])){
-    header("Location: login.php");
-  }
+<?php
+include_once ("templates/header.php");
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-  
-  <?php include_once './partials/head.php'; ?>
-
-  <body>    
-
-    <section>
-      <?php include_once './partials/menu.php'; ?>
-
-      <?php include_once './pages/routes.php'; ?>
-    </section>
-    
-    <?php include_once './partials/scripts.php'; ?>
-  </body>
-</html>
+<main>
+    <div id="title-container">
+        <h1>Blog Codar</h1>
+        <p>O seu blog de programação</p>
+    </div>
+    <div id="posts-container">
+        <?php foreach ($posts as $post): ?>
+            <div class="post-box">
+                <img src="<?= $BASE_URL ?>/img/<?= $post["img"] ?>" alt="<?= $post["title"] ?>">
+                <h2 class="post-title">
+                    <a href="<?= $BASE_URL ?>post.php?id=<?= $post["id"] ?>"><?= $post["title"] ?></a>
+                </h2>
+                <p class="post-description"><?= $post["description"] ?></p>
+                <div class="tags-container">
+                    <?php foreach ($post["tags"] as $tag): ?>
+                        <a href="#"><?=$tag?></a>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</main>
+<?php
+include_once ("templates/footer.php");
+?>
